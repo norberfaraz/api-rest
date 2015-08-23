@@ -1,0 +1,4 @@
+
+(process:3846): GLib-CRITICAL **: g_slice_set_config: assertion 'sys_page_size == 0' failed
+
+(process:3854): GLib-CRITICAL **: g_slice_set_config: assertion 'sys_page_size == 0' failed
