@@ -11,11 +11,6 @@ $app = new \Slim\Slim();
 $app->view(new \JsonApiView());
 $app->add(new \JsonApiMiddleware());
 
-
-
-
-
-
 $app->get('/process',  function () use ($app)  { process($app);});
 
 
