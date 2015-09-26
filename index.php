@@ -11,24 +11,30 @@ $app = new \Slim\Slim();
 $app->view(new \JsonApiView());
 $app->add(new \JsonApiMiddleware());
 
+function auth (){
+$app = \Slim\Slim::getInstance();
+$key= $app->request->headers->get('HTTP_KEY');
+echo "la key es: "+$key;
+}
+
 $app->get('/process',  function () use ($app)  { process($app);});
 
-
-$app->get('/find/:pid', function($pid) use ($app) { find($pid,$app); } );
-
-$app->get('/kill/:pid', function($pid) use ($app) {
+$app->get('/process:pid', function ($pid) use ($app) { find($pid,$app);});
+//$app->get('/process/:pid', function($pid) use ($app) { find($pid,$app);});
+ 
+$app->delete('/process/:pid', function($pid) use ($app) {
 		$str="kill -9 ".$pid." &> prueba";
 		
 		$salida=posix_kill($pid,9);		
 
 		if($salida==1){
 
-		$app->render (200,array('msg'=>'Proceso eliminado','error'=>'false'));
+		$app->render (200,array('msg'=>'Proceso pid='.$pid.' eliminado','error'=>'false'));
 
 		}
 
 		else
-		$app->render (202,array('msg'=>'error el proceso no se pudo eliminar, verifique si existe','error'=>'true') );	
+		$app->render (202,array('msg'=>'error el proceso pid='.$pid.' no se pudo eliminar, verifique si existe','error'=>'true') );	
 			
 });
 
@@ -38,16 +44,19 @@ $app->get('/pri/:pri/:pid',  function ($pri,$pid) use ($app) {
 		$par="sudo ./script/prueba.sh ".$pri." ".$pid;
 		//echo $par;
 		$salida=shell_exec($par);
-		 $app->render (200,array('msg'=>$salida,'error'=>'false') );
+		$app->render (200,array('msg'=>$salida,'error'=>'false') );
 		echo $salida;	
 	
 })
 ;
 
-$app->get('/', function() use ($app) {
+$app->get('/create/:crt', function($crt) use ($app) {
+	$comando=$crt." &";
+	$salida=shell_exec($comando);
+	
         $app->render(200,array(
-                'msg' => 'welcome to my API!',
-            ));
+                'msg' => $salida,
+        ));
     });
 
 
