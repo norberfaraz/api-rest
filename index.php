@@ -1,5 +1,4 @@
 <?php
-
 include ("process.php");
 include ("find.php");
 require "vendor/autoload.php";
@@ -34,31 +33,46 @@ $auth= function(){
 
 };
 
-$app->get('/process',$auth,  function () use ($app)  { process($app);});
+$app->get('/process',$auth, function () use ($app)  { process($app,null);});
 
-$app->get('/process/:pid',$auth,function($pid) use ($app) { find($pid,$app)
-		;});
+$app->get('/process/:pid',$auth,function($pid) use ($app) { 
+
+	if(is_numeric($pid)) 
+	find($pid,$app);
+	else
+	process($app,$pid);
+		
+});
 
 $app->delete('/process/:pid',$auth, function($pid) use ($app) {
+		$mypid=getmypid();
+		if($mypid==$pid){
+		$app->render (202,array('msg'=>'Proceso pid='.$pid.' no pude ser eliminado','error'=>'true'));
+		}
+		else{	
+
 		$str="kill -9 ".$pid." &> prueba";
+
 
 		$salida=posix_kill($pid,9);		
 
 		if($salida==1){
 
 		$app->render (200,array('msg'=>'Proceso pid='.$pid.' eliminado','error'=>'false'));
-
 		}
 
+
 		else
-		$app->render (202,array('msg'=>'error el proceso pid='.$pid.' no se pudo eliminar, verifique si existe','error'=>'true') );	
-
-		});
-
-$app->get('/pri/:pri/:pid',  function ($pri,$pid) use ($app) { 
+		$app->render (202,array('msg'=>'error el proceso pid='.$pid.' no se pudo eliminar, verifique si existe','error'=>'true'));	
 
 
-		$par="sudo ./script/prueba.sh ".$pri." ".$pid;
+		}	
+
+});
+
+$app->get('/pri/:pri/:pid', function ($pri,$pid) use ($app) { 
+
+		$par="sudo renice ".$pri." ".$pid;
 		//echo $par;
 		$salida=shell_exec($par);
 		$app->render (200,array('msg'=>$salida,'error'=>'false') );
@@ -76,9 +90,7 @@ $app->get('/create/:crt', function($crt) use ($app) {
 				));
 		});
 
-
 $app->run();
-
 
 ?>
 
