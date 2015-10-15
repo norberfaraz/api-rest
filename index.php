@@ -37,8 +37,15 @@ $app->get('/process',$auth, function () use ($app)  { process($app,null);});
 
 $app->get('/process/:pid',$auth,function($pid) use ($app) { 
 
-	if(is_numeric($pid)) 
-	find($pid,$app);
+	if(is_numeric($pid)){ 
+	$process=find($pid,$app);
+	if($process!=null)
+           $app->render (200,array('process'=>$process));
+	else
+ 	   $app->render (202,array('msg'=>'Proceso inexistente','error'=>true));
+
+
+	}
 	else
 	process($app,$pid);
 		
@@ -70,15 +77,40 @@ $app->delete('/process/:pid',$auth, function($pid) use ($app) {
 
 });
 
-$app->get('/pri/:pri/:pid', function ($pri,$pid) use ($app) { 
+$app->put('/process/:pid', function ($pid) use ($app) { 
 
-		$par="sudo renice ".$pri." ".$pid;
-		//echo $par;
-		$salida=shell_exec($par);
-		$app->render (200,array('msg'=>$salida,'error'=>'false') );
-		echo $salida;	
+		$process=find($pid,$app);
+		if($process!=null){
+			$put=$app->request();
+		        $ni=$put->put('ni');
+//			$app->render (202,array('msg'=>$ni,'error'=>'false'));
+			if(is_numeric($ni)){
+				if(((int)$ni)>-21 && ((int)$ni)<21){
 
-		})
+
+					
+
+
+
+
+					$par="sudo renice ".$ni." ".$pid;
+					$salida=shell_exec($par);
+					$app->render (200,array('msg'=>$salida,'error'=>'false'));
+				}
+				else
+					$app->render (202,array('msg'=>'la variable ni(prioridad) no esta bien definida, debe ser un valor numerico entre 20 y -20 2 ' ,'error'=>'true') );
+
+			}
+			else
+				$app->render (202,array('msg'=>'la variable ni(prioridad) no esta bien definida, debe ser un valor numerico entre 20 y -20  1 '.$ni.'h','error'=>'true'));
+
+		}
+
+		else
+			$app->render (202,array('msg'=>'Proceso inexistente','error'=>true));
+
+
+})
 ;
 
 $app->get('/create/:crt', function($crt) use ($app) {

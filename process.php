@@ -5,8 +5,9 @@ function process ($app,$users){
 
 	$salida=shell_exec('ps -e -o user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,ni,command');
 	//     $salida=shell_exec('ps faxu');
-	$i=$j=$a=$m=$n=$mrc=$usr=0;
-	$user=$pid=$cpu=$mem=$vsz=$rss=$tty=$stat=$start=$time=$com=$conca='';
+	$i=$j=$a=$m=$n=$mrc=$usr=$cont=$ent=0;
+	$vari=12;
+	$mes=$user=$pid=$cpu=$mem=$vsz=$rss=$tty=$stat=$start=$time=$com=$conca='';
 	$saltos=preg_split("[\n]",$salida);
 
 	foreach($saltos as $valor){
@@ -17,6 +18,7 @@ function process ($app,$users){
 
 		$space=preg_split("[\s]",$valor);
 		foreach($space as $valor2){
+
 			if($j==0){
 
 				$datos[$m][$n]=$valor2;
@@ -35,9 +37,45 @@ function process ($app,$users){
 
 			else{
 				if($valor2 !="" && $n<12){
+				
+					if($cont==7 || $ent==1 )
+					{
+						
+						if(strlen($valor2)>4 && $ent==0){
+							$datos[$m][$n]=$valor2;
+                                        		$n++;
+							$cont=-2;	
+						
+						}
+						else{
+							if($ent==0){
+								$mes=$valor2;
+								$ent=1;
+							}		
+							else{
+								
+
+							$mes=$mes." ".$valor2;
+						//	$app->render(200,array('meses'=>'meses='.$mes.'valor2='.$valor2.'asdasd'));
+							$datos[$m][$n]=$mes;
+                                                        $n++;
+							$cont=-10;
+							$ent=0;
+							
+							}
+								
+						}
+						
+							
+							
+					}
+					
+					else{
 
 					$datos[$m][$n]=$valor2;
 					$n++;
+					$cont++;	
+					}
 
 				}
 
@@ -50,6 +88,7 @@ function process ($app,$users){
 		$j=0;
 		$n=0;
 		$m++;
+		$cont=0;
 
 	}
 
