@@ -56,7 +56,6 @@ function process ($app,$users){
 								
 
 							$mes=$mes." ".$valor2;
-						//	$app->render(200,array('meses'=>'meses='.$mes.'valor2='.$valor2.'asdasd'));
 							$datos[$m][$n]=$mes;
                                                         $n++;
 							$cont=-10;
@@ -71,10 +70,9 @@ function process ($app,$users){
 					}
 					
 					else{
-
-					$datos[$m][$n]=$valor2;
-					$n++;
-					$cont++;	
+						$datos[$m][$n]=$valor2;
+						$n++;
+						$cont++;	
 					}
 
 				}
@@ -95,8 +93,6 @@ function process ($app,$users){
 
 	if($users==null){
 		for($c=0;$c<($m-1);$c++){
-
-			//	if($datos[$c][0]=='root')
 
 			$process[]= array('USER'=>$datos[$c][0],'PID'=>$datos[$c][1],'%CPU'=>$datos[$c][2],'%MEM'=>$datos[$c][3],'VSZ'=>$datos[$c][4],'RSS'=>$datos[$c][5],'TTY'=>$datos[$c][6],'STAT'=>$datos[$c][7],'START'=>$datos[$c][8],'TIME'=>$datos[$c][9],'NI'=>$datos[$c][10],'COMAND'=>$datos[$c][11]);
 

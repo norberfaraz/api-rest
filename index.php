@@ -10,30 +10,34 @@ $app->view(new \JsonApiView());
 $app->add(new \JsonApiMiddleware());
 
 $auth= function(){
-	$app = \Slim\Slim::getInstance();
-
-	$req=$app->request();
+	$app2 = \Slim\Slim::getInstance();
+	$req=$app2->request();
 	$key=$req->get('key');
+	$key=md5($key);	
 	if($key==''){
-		$app->render (401,array('msg'=>'Key incorrecto','error'=>'true'));
+		$app2->render (401,array('msg'=>'Key incorrecto','error'=>'true'));
 	}
 
-	$conn = mysqli_connect('127.0.0.1','root','155070847','monitorreo');
+	$conn = mysqli_connect('127.0.0.1','root','155070847','monitoreo');
 	if (!$conn) {
 		die("Connection failed: " . mysqli_connect_error());
 	}
-	$sql="select * from users where pass=".$key;
+	$sql="select * from users where pass='".$key."'";
 
-	$result = $conn->query($sql);
+	$result = mysqli_query($conn,$sql);
+	$row_cnt = mysqli_num_rows($result);	
 
-	if($result->num_rows <= 0 ){
-		$app->render (401,array('msg'=>'Key incorrecto','error'=>'true'));
-	}
-
+	if($row_cnt == 0)
+		$app2->render (401,array('msg'=>'Key incorrecto','error'=>'true'));
+	
 
 };
 
-$app->get('/process',$auth, function () use ($app)  { process($app,null);});
+$app->get('/process',$auth, function () use ($app)  { 
+
+
+///	$app->render(201,array('msg'=>'la key es:'.$key,'error'=>'true'));
+process($app,null);});
 
 $app->get('/process/:pid',$auth,function($pid) use ($app) { 
 
@@ -60,7 +64,6 @@ $app->delete('/process/:pid',$auth, function($pid) use ($app) {
 
 		$str="kill -9 ".$pid." &> prueba";
 
-
 		$salida=posix_kill($pid,9);		
 
 		if($salida==1){
@@ -83,15 +86,8 @@ $app->put('/process/:pid', function ($pid) use ($app) {
 		if($process!=null){
 			$put=$app->request();
 		        $ni=$put->put('ni');
-//			$app->render (202,array('msg'=>$ni,'error'=>'false'));
 			if(is_numeric($ni)){
 				if(((int)$ni)>-21 && ((int)$ni)<21){
-
-
-					
-
-
-
 
 					$par="sudo renice ".$ni." ".$pid;
 					$salida=shell_exec($par);
@@ -105,7 +101,6 @@ $app->put('/process/:pid', function ($pid) use ($app) {
 				$app->render (202,array('msg'=>'la variable ni(prioridad) no esta bien definida, debe ser un valor numerico entre 20 y -20  1 '.$ni.'h','error'=>'true'));
 
 		}
-
 		else
 			$app->render (202,array('msg'=>'Proceso inexistente','error'=>true));
 
@@ -113,7 +108,7 @@ $app->put('/process/:pid', function ($pid) use ($app) {
 })
 ;
 
-$app->get('/create/:crt', function($crt) use ($app) {
+$app->post('/create/:crt', function($crt) use ($app) {
 		$comando=$crt." &";
 		$salida=shell_exec($comando);
 
