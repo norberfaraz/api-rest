@@ -89,8 +89,10 @@ $app->put('/process/:pid', function ($pid) use ($app) {
 			if(is_numeric($ni)){
 				if(((int)$ni)>-21 && ((int)$ni)<21){
 
-					$par="sudo renice ".$ni." ".$pid;
+					$par="renice ".$ni." ".$pid;
 					$salida=shell_exec($par);
+					if($salida==null)
+					$salida="No tiene permisos para repriorizar ese proceso";
 					$app->render (200,array('msg'=>$salida,'error'=>'false'));
 				}
 				else
