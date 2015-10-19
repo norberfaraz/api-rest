@@ -16,7 +16,7 @@ http://serviciosgdpsalud.com.ar:6517/index.php/process?key=123ksdfj12YripJd52340
 La aplicacion cuenta con 7 rutas distintas, todas variatenes de http://serviciosgdpsalud.com.ar:6517/index.php/process
 ##GET/process
 Esta ruta nos devolvera informacion sobre todos los procesos que actualmente estan en ejecucion en nuestro servidor.
-Los parametros devueltos son los siguientes:
+El detalle de los parametros devueltos son:
 
 Nombre | Detalle
 ------------ | ------------- | -------------
@@ -32,4 +32,17 @@ START | Tiempo en el que comenzo el proceso
 TIME | Tiempo que lleva en ejecución el proceso.
 NI | Prioridad.
 COMAND | Comando de ejecucion del proceso.
+##GET/process/:username
+Devuelve los procesos que esta actualemten ejecutando el usuario especificado.
+:username ->  Es el nombre de usuario que este ejecutando procesos en el servidor.
+##GET/process/:pid
+Devuelve informacion sobre un proceso en particular.
+:pid-> ID de proceso corriendo en el servidor.
+##DELETE /process/:pid
+Elimina el proceso especificado a travez de una señal kill.
+:pid-> ID de proceso a ser eliminado. 
+El usuario solo podra eliminar procesos del usuario www-data. El cual es con el que se corre el servidor apache y por ende la aplicacion. 
+
+
+
 
