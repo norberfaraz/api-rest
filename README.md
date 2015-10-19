@@ -26,15 +26,7 @@ PID | Proceso ID.
 VSZ | Tamaño de la memoria virtual del proceso en Kb.
 RSS | Tamaño de la memoria virtual del proceso en Kb.
 TTY | Nombre de la terminal a la que esta asociado al proceso.
-STAT | Estado del proceso:   
-   R	Ejecutable.
-   D	Interrumpió.
-   S	Suspendido.
-   s	Es el proceso líder de la sesión.
-   T	Detenido.
-   Z	Zombie.
-   N	Tiene una prioridad menor que lo normal.
-
+STAT | Estado del proceso: R Ejecutable. D Interrumpió.S Suspendido. s Es el proceso líder de la sesión. T Detenido. Z Zombie.N	Tiene una prioridad menor que lo normal.
 START | Tiempo en el que comenzo el proceso
 TIME | Tiempo que lleva en ejecución el proceso.
 NI | Prioridad.
@@ -72,4 +64,3 @@ ppid | El id del proceso padre
 status | El estado del proceso como un string
 terminal | El terminal asociado con este proceso, si hay
 threads | Los threads the proceso
-
