@@ -32,16 +32,33 @@ START | Tiempo en el que comenzo el proceso
 TIME | Tiempo que lleva en ejecución el proceso.
 NI | Prioridad.
 COMAND | Comando de ejecucion del proceso.
+
 ##GET/process/:username
 Devuelve los procesos que esta actualemten ejecutando el usuario especificado.
 :username ->  Es el nombre de usuario que este ejecutando procesos en el servidor.
-##GET/process/:pid
+
+##GET/process/:pidhttp://prose.io/#norberfaraz/api-rest/edit/master/README.md
 Devuelve informacion sobre un proceso en particular.
 :pid-> ID de proceso corriendo en el servidor.
+
 ##DELETE /process/:pid
 Elimina el proceso especificado a travez de una señal kill.
 :pid-> ID de proceso a ser eliminado. 
-El usuario solo podra eliminar procesos del usuario www-data. El cual es con el que se corre el servidor apache y por ende la aplicacion. 
+El usuario solo podra eliminar procesos del usuario www-data. 
+Este usuario es con el que se corre el servidor apache y por ende la aplicacion hereda sus permisos dentro del servidor.
+**De ser necesario darle los permisos para eliminar cualquier proceso (lo cual no se recomienda) podemos ejecutar la senial con permisos root modificando el archivo sudouser**
+### Editar sudouser
+Agregamos la siguiente linea para ejecutar el comando kill con permisos root y sin tener que ingresar password:
+```
+<username> ALL= NOPASSWD:/usr/bin/kill
+
+```
+Donde "username" sera www-data en nuesto caso. 
+
+##PUT /process/:pid
+Esta ruta nos permite repriorizar un proceso especifico. Debemos pasar la variable PUT -> ni=valor    
+El valor de "ni" debe estar entre 19 y -20
+
 
 
 
