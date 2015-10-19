@@ -45,7 +45,7 @@ Devuelve informacion sobre un proceso en particular.
 Elimina el proceso especificado a travez de una señal kill.
 :pid-> ID de proceso a ser eliminado. 
 El usuario solo podra eliminar procesos del usuario www-data. 
-Este usuario es con el que se corre el servidor apache y por ende la aplicacion hereda sus permisos dentro del servidor.
+Este usuario es con el que se ejecuta el servidor apache y por ende la aplicacion hereda sus permisos dentro del servidor.
 **De ser necesario darle los permisos para eliminar cualquier proceso (lo cual no se recomienda) podemos ejecutar la senial con permisos root modificando el archivo sudouser**
 ### Editar sudouser
 Agregamos la siguiente linea para ejecutar el comando kill con permisos root y sin tener que ingresar password:
@@ -55,9 +55,27 @@ Agregamos la siguiente linea para ejecutar el comando kill con permisos root y s
 ```
 Donde "username" sera www-data en nuesto caso. 
 
+###Consecuencias
+Al hacer esta modificacion le estariamos dando al usuario la posibilidad de eliminar cualquier proceso lo cual es muy peligroso y de no hacerlo de forma responsable pone en riesgo la integridad de los servicios dentro del server.
+
 ##PUT /process/:pid
 Esta ruta nos permite repriorizar un proceso especifico. Debemos pasar la variable PUT -> ni=valor    
-El valor de "ni" debe estar entre 19 y -20
+El valor de "ni" debe estar entre 19 (menor prioridad) y -20 (mayor prioridad). El usuario solo podra bajar la prioridad de los procesos que corren con el usuario www-data.
+**De ser necesario darle los permisos para reprioriza cualquier proceso (lo cual no se recomienda) podemos ejecutar el comando renice con permisos root modificando el archivo sudouser**
+### Editar sudouser
+Agregamos la siguiente linea para ejecutar el comando renice con permisos root y sin tener que ingresar password:
+
+```
+<username> ALL= NOPASSWD:/usr/bin/renice
+
+```
+### Consecuecias
+Esta modificacion permitira al usuario poder modificar la prioridad de cualquier proceso pudiendo realizar alguna modificacion que perjudique a los servicios corriendo en el server.
+
+##POST /process
+
+
+
 
 
 
