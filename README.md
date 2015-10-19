@@ -31,3 +31,10 @@ START | Tiempo en el que comenzo el proceso
 TIME | Tiempo que lleva en ejecución el proceso.
 NI | Prioridad.
 COMAND | Comando de ejecucion del proceso.
+num_threads | Número de hilos
+open_files | Número de archivos abiertos, y su file descriptor. En windows el fd siempre es -1
+pid | El id del proceso
+ppid | El id del proceso padre
+status | El estado del proceso como un string
+terminal | El terminal asociado con este proceso, si hay
+threads | Los threads the proceso
