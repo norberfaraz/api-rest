@@ -9,13 +9,23 @@ Para la autenticación de los usuario se han almacenado las credenciales en una 
 El sistema operativo del servidor es Debian 7.8.
 
 #Aplicación
-El servidor es accesible a través de la url http://serviciosgdpsalud.com.ar:6517 .
+La aplicacion es accesible a través de la url
+```
+http://serviciosgdpsalud.com.ar:6517/index.php/process .
+```
+
 ## autenticación
 La autenticación se realiza por medio de una variable pasada por GET llamada "key". Los usuarios serán identificados por una clave única alfanumérica de 30 caracteres almacenada en la base de datos de sistema. Ejemplo:
 
+```
 http://serviciosgdpsalud.com.ar:6517/index.php/process?key=123ksdfj12YripJd523409Jrudoiu34Y
+```
+
 #URL'S
-La aplicación cuenta con 7 rutas distintas, todas variantes de http://serviciosgdpsalud.com.ar:6517/index.php/process
+La aplicación cuenta con 7 rutas distintas, todas variantes de 
+```
+http://serviciosgdpsalud.com.ar:6517/index.php/process
+```
 
 ##GET/process
 Esta ruta nos devolverá información sobre todos los procesos que actualmente están en ejecución en nuestro servidor.
@@ -85,4 +95,3 @@ Esta funcionalidad esta limitada según los permisos del usuario www-data
 
 ### Consecuencias
 Esta funcionalidad es muy peligrosa dejarla sin restricciones y sin limitar que comandos puede ejecutar el usuario. Por defecto solo se limita la ejecución de comandos de acuerdo a los permisos del usuario en el sistema operativo. Esto es un riesgo muy grande ya que se abren infinidad de vulnerabilidades hacia el servidor. De acuerdo con esto deberíamos personalizar cuales son los procesos que debe correr el usuario y ver si es viable que se realicen a través de la API.
-
