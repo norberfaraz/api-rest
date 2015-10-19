@@ -18,7 +18,7 @@ La aplicacion cuenta con 7 rutas distintas, todas variatenes de http://servicios
 Esta ruta nos devolvera informacion sobre todos los procesos que actualmente estan en ejecucion en nuestro servidor.
 Los parametros devueltos son los siguientes:
 Nombre | Detalle
------------- | -------------
+------------ | ------------- | -------------
 USER | Usuario dueño del proceso.
 PID | Proceso ID.
 %MEM | Porcentaje de memoria RAM usado.
@@ -27,13 +27,6 @@ VSZ | Tamaño de la memoria virtual del proceso en Kb.
 RSS | Tamaño de la memoria virtual del proceso en Kb.
 TTY | Nombre de la terminal a la que esta asociado al proceso.
 STAT | Estado del proceso:
-   R	Ejecutable.
-   D	Interrumpió.
-   S	Suspendido.
-   s	Es el proceso líder de la sesión.
-   T	Detenido.
-   Z	Zombie.
-   N	Tiene una prioridad menor que lo normal.
 START | Tiempo en el que comenzo el proceso
 TIME | Tiempo que lleva en ejecución el proceso.
 NI | Prioridad.
@@ -42,7 +35,13 @@ COMAND | Comando de ejecucion del proceso.
 
 
 
-
+   R	Ejecutable.
+   D	Interrumpió.
+   S	Suspendido.
+   s	Es el proceso líder de la sesión.
+   T	Detenido.
+   Z	Zombie.
+   N	Tiene una prioridad menor que lo normal.
 
 
 
