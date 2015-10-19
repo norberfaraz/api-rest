@@ -11,7 +11,7 @@ El sistema operativo del servidor es Debian 7.8.
 #Aplicación
 La aplicacion es accesible a través de la url
 ```
-http://serviciosgdpsalud.com.ar:6517/index.php/process .
+http://serviciosgdpsalud.com.ar:6517/index.php/process 
 ```
 
 ## autenticación
