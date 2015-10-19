@@ -61,6 +61,7 @@ Al hacer esta modificacion le estariamos dando al usuario la posibilidad de elim
 ##PUT /process/:pid
 Esta ruta nos permite repriorizar un proceso especifico. Debemos pasar la variable PUT -> ni=valor    
 El valor de "ni" debe estar entre 19 (menor prioridad) y -20 (mayor prioridad). El usuario solo podra bajar la prioridad de los procesos que corren con el usuario www-data.
+La aplicacion nos devolvera un mesaje de exito en caso de haber podido repriorizar el proceso.
 **De ser necesario darle los permisos para reprioriza cualquier proceso (lo cual no se recomienda) podemos ejecutar el comando renice con permisos root modificando el archivo sudouser**
 ### Editar sudouser
 Agregamos la siguiente linea para ejecutar el comando renice con permisos root y sin tener que ingresar password:
@@ -70,9 +71,20 @@ Agregamos la siguiente linea para ejecutar el comando renice con permisos root y
 
 ```
 ### Consecuecias
-Esta modificacion permitira al usuario poder modificar la prioridad de cualquier proceso pudiendo realizar alguna modificacion que perjudique a los servicios corriendo en el server.
+Esta modificacion permitira al usuario poder modificar la prioridad de cualquier proceso pudiendo realizar alguna modificacion que perjudiquen los servicios corriendo en el server.
 
 ##POST /process
+Nos permite ejecutar comandos con un tiempo de vida util bajo el usuario www-data. Por defecto esta seteado en 5 segundoss. Debemos pasar el comando a traves de la variable POST-> command=comando a ejecutar.
+El sistema nos devolvera el resultado de la ejecucion del comando.
+Esta funcionalidad esta limitada segun los permisos del usuario www-data
+
+### Consecuencias
+Esta funcionalidad es muy peligrosa dejarla sin restricciones y sin limitar que comandos puede ejecutar el usuario. Por defecto solo se limita la ejecucion de comandos de acuerdo a los permisos del usario en el sistema operativo. Esto es un riesgo muy grande ya que se habren infinidad de vulnerabilidades hacia el servidor.De acuerdo con esto deberiamos personalizar cuales son los procesos que debe correr el usuario y ver si es viable que se realicen a traves de la API.
+
+
+
+
+
 
 
 
