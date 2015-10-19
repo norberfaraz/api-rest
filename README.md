@@ -71,5 +71,4 @@ ppid | El id del proceso padre
 status | El estado del proceso como un string
 terminal | El terminal asociado con este proceso, si hay
 threads | Los threads the proceso
-uids | Arreglo con los valores de los ids de grupo para **real**, **effective** and **saved**
-username | El usuario dueño de este proceso
+
