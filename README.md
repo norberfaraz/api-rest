@@ -26,15 +26,7 @@ PID | Proceso ID.
 VSZ | Tamaño de la memoria virtual del proceso en Kb.
 RSS | Tamaño de la memoria virtual del proceso en Kb.
 TTY | Nombre de la terminal a la que esta asociado al proceso.
-STAT | Estado del proceso:
-START | Tiempo en el que comenzo el proceso
-TIME | Tiempo que lleva en ejecución el proceso.
-NI | Prioridad.
-COMAND | Comando de ejecucion del proceso.
-
-
-
-
+STAT | Estado del proceso:   
    R	Ejecutable.
    D	Interrumpió.
    S	Suspendido.
@@ -43,27 +35,36 @@ COMAND | Comando de ejecucion del proceso.
    Z	Zombie.
    N	Tiene una prioridad menor que lo normal.
 
+START | Tiempo en el que comenzo el proceso
+TIME | Tiempo que lleva en ejecución el proceso.
+NI | Prioridad.
+COMAND | Comando de ejecucion del proceso.
+
+
 
 
 Nombre | Explicación
 ------------ | ------------- | -------------
-cmdline | Comando de la linea de comando con que fue llamado
-connections | Sockets abiertos por este procesos
-cpu_percent | Porcentaje de procesamiento ocupado
-cpu_times |  Arreglo con [segundos en espacio de usuario, segundos en espacio de sistema]
-cpu_affinity | En que procesador/es correr este proceso
-create_time | Tiempo de creación
-cwd | Directorio absoluto de trabajo
-exe | El ejecutable de este proceso
-gids | Arreglo con los valores de los ids de grupo para **real**, **effective** and **saved**
-memory_info | Arreglo con RSS (Resident Set Size) y VMS (Virtual Memory Size) en bytes. Cambia según OS ver psutil
-memory_info_ex | Ver [psutil#memory_info_ex](http://pythonhosted.org/psutil/#psutil.Process.memory_info_ex)
-memory_maps | Mapas de memoria
-memory_percent | Porcentaje de la memoria fisica utilizada, en relación al RSS
-name | Nombre del proceso
-nice | Prioridad
-num_ctx_switches | Numero de cambio de contexto
-num_fds | Número de file descriptors
+USER | Usuario dueño del proceso.
+PID | Proceso ID.
+%MEM | Porcentaje de memoria RAM usado.
+%CPU | Porcentaje de prcesador usado.
+VSZ | Tamaño de la memoria virtual del proceso en Kb.
+RSS | Tamaño de la memoria virtual del proceso en Kb.
+TTY | Nombre de la terminal a la que esta asociado al proceso.
+STAT | Estado del proceso:   
+   R	Ejecutable.
+   D	Interrumpió.
+   S	Suspendido.
+   s	Es el proceso líder de la sesión.
+   T	Detenido.
+   Z	Zombie.
+   N	Tiene una prioridad menor que lo normal.
+
+START | Tiempo en el que comenzo el proceso
+TIME | Tiempo que lleva en ejecución el proceso.
+NI | Prioridad.
+COMAND | Comando de ejecucion del proceso.
 num_threads | Número de hilos
 open_files | Número de archivos abiertos, y su file descriptor. En windows el fd siempre es -1
 pid | El id del proceso
