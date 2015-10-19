@@ -45,3 +45,32 @@ COMAND | Comando de ejecucion del proceso.
 
 
 
+
+Nombre | Explicación
+------------ | ------------- | -------------
+cmdline | Comando de la linea de comando con que fue llamado
+connections | Sockets abiertos por este procesos
+cpu_percent | Porcentaje de procesamiento ocupado
+cpu_times |  Arreglo con [segundos en espacio de usuario, segundos en espacio de sistema]
+cpu_affinity | En que procesador/es correr este proceso
+create_time | Tiempo de creación
+cwd | Directorio absoluto de trabajo
+exe | El ejecutable de este proceso
+gids | Arreglo con los valores de los ids de grupo para **real**, **effective** and **saved**
+memory_info | Arreglo con RSS (Resident Set Size) y VMS (Virtual Memory Size) en bytes. Cambia según OS ver psutil
+memory_info_ex | Ver [psutil#memory_info_ex](http://pythonhosted.org/psutil/#psutil.Process.memory_info_ex)
+memory_maps | Mapas de memoria
+memory_percent | Porcentaje de la memoria fisica utilizada, en relación al RSS
+name | Nombre del proceso
+nice | Prioridad
+num_ctx_switches | Numero de cambio de contexto
+num_fds | Número de file descriptors
+num_threads | Número de hilos
+open_files | Número de archivos abiertos, y su file descriptor. En windows el fd siempre es -1
+pid | El id del proceso
+ppid | El id del proceso padre
+status | El estado del proceso como un string
+terminal | El terminal asociado con este proceso, si hay
+threads | Los threads the proceso
+uids | Arreglo con los valores de los ids de grupo para **real**, **effective** and **saved**
+username | El usuario dueño de este proceso
