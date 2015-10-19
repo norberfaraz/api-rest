@@ -92,7 +92,7 @@ $app->post('/process/',$auth,function() use ($app) {
                         $app->render (202,array('msg'=>'Ingrese un comando correcto','error'=>'true'));
                 else{
 
-                $command=$command." &";
+                $command=$command."& sleep 5 ; kill $! ";
                 $salida=shell_exec($command);
                 if($salida==null || $salida=='')
                         $app->render(202,array('msg'=>'No tiene permisos para ejecutar este comando o el comando ingresado es incorrecto','error'=>'true'));
