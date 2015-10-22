@@ -3,6 +3,7 @@ include ("process.php");
 include ("find.php");
 include ("renice.php");
 include ("auth.php");
+include ("comp.php");
 require "vendor/autoload.php";
 
 header("Content-Type: application/json");
@@ -12,18 +13,25 @@ $app->view(new \JsonApiView());
 $app->add(new \JsonApiMiddleware());
 
 $auth= function(){
-		
+
 	auth();	
 
 };
 
 $app->get('/process',$auth, function () use ($app)  {
 
+//	$root=0;
 
-///     $app->render(201,array('msg'=>'la key es:'.$key,'error'=>'true'));
+//	$root=comp();
+//	$app->render (202,array('msg'=>'root='.$root.' ','error'=>true));
+	
 process($app,null);});
 
+
+
 $app->get('/process/:pid',$auth,function($pid) use ($app) {
+
+
 
         if(is_numeric($pid)){
         $process=find($pid,$app);
@@ -31,7 +39,6 @@ $app->get('/process/:pid',$auth,function($pid) use ($app) {
            $app->render (200,array('process'=>$process));
         else
            $app->render (202,array('msg'=>'Proceso inexistente','error'=>true));
-
 
         }
         else

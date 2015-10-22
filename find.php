@@ -67,7 +67,6 @@ function find($pid,$app){
 
 
 												$mes=$mes." ".$valor2;
-												//      $app->render(200,array('meses'=>'meses='.$mes.'valor2='.$valor2.'asdasd'));
 												$datos[$m][$n]=$mes;
 												$n++;
 												$cont=-10;
@@ -89,10 +88,6 @@ function find($pid,$app){
 									}
 
 
-
-									//$datos[$m][$n]=$valor2;
-									//$n++;
-
 								}
 							}
 						}
@@ -101,18 +96,11 @@ function find($pid,$app){
 						$conca='';
 						$j=0;
 						$n=0;
-
 						$x=1;     
-
-
-
-
 
 						$process[]= array('USER'=>$datos[0][0],'PID'=>$datos[0][1],'%CPU'=>$datos[0][2],'%MEM'=>$datos[0][3],'VSZ'=>$datos[0][4],'RSS'=>$datos[0][5],'TTY'=>$datos[0][6],'STAT'=>$datos[0][7],'START'=>$datos[0][8],'TIME'=>$datos[0][9],'NI'=>$datos[0][10],'COMAND'=>$datos[0][11]);
 
 						return $process;						
-
-						//$app->render (200,array('process'=>$process));
 
 
 					}        
@@ -127,8 +115,6 @@ function find($pid,$app){
 
 	if($x==0)        
 		return null;	
-	//   $app->render (202,array('msg'=>'Proceso inexistente','error'=>true));
-
 }
 
 

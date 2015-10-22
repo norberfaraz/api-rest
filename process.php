@@ -54,12 +54,12 @@ function process ($app,$users){
 							}		
 							else{
 								
-
-							$mes=$mes." ".$valor2;
-							$datos[$m][$n]=$mes;
-                                                        $n++;
-							$cont=-10;
-							$ent=0;
+							
+								$mes=$mes." ".$valor2;
+								$datos[$m][$n]=$mes;
+        	                                                $n++;
+								$cont=-10;
+								$ent=0;
 							
 							}
 								

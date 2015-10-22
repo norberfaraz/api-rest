@@ -1,7 +1,9 @@
 <?php
 function renice($pid,$app){
-
-
+			
+		$root=0;
+		$salida=null;
+		$root=comp();	
                 $process=find($pid,$app);
                 if($process!=null){
                         $put=$app->request();
@@ -9,7 +11,13 @@ function renice($pid,$app){
                         if(is_numeric($ni)){
                                 if(((int)$ni)>-21 && ((int)$ni)<20){
 
-                                        $par="sudo renice ".$ni." ".$pid;
+					
+					if($root==1){
+						$par="sudo ./renice.sh norberfaraz@gmail.com ".$ni." ".$pid;
+					}
+					else
+                                        $par="renice ".$ni." ".$pid;
+
                                         $salida=shell_exec($par);
                                         if($salida==null){
                                        		$salida="No tiene permisos para repriorizar el proceso con ID:".$pid;
