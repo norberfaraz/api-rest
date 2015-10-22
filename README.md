@@ -62,7 +62,7 @@ El usuario solo podrá eliminar procesos del usuario www-data.
 Este usuario es con el que se ejecuta el servidor apache y por ende la aplicación hereda sus permisos dentro del servidor.
 **De ser necesario darle los permisos para eliminar cualquier proceso (lo cual no se recomienda para un usuario standar) podemos ejecutar la señal con permisos root esto podriamos hacerlo por medio de un scrip y darle permisos a este para que sea ejecutado con permisos root sin pedir password **
 ### Editar sudouser
-Agregamos la siguiente linea para ejecutar el scipt kill.sh (en caperta script)  sin tener que ingresar password:
+Agregamos la siguiente linea para ejecutar el scipt kill.sh sin tener que ingresar password:
 ```
 <username> ALL= NOPASSWD:/path-script
 
