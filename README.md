@@ -60,34 +60,28 @@ Elimina el proceso especificado a través de una señal kill.
 :pid-> ID de proceso a ser eliminado. 
 El usuario solo podrá eliminar procesos del usuario www-data. 
 Este usuario es con el que se ejecuta el servidor apache y por ende la aplicación hereda sus permisos dentro del servidor.
-**De ser necesario darle los permisos para eliminar cualquier proceso (lo cual no se recomienda) podemos ejecutar la señal con permisos root modificando el archivo sudouser**
+**De ser necesario darle los permisos para eliminar cualquier proceso (lo cual no se recomienda para un usuario standar) podemos ejecutar la señal con permisos root esto podriamos hacerlo por medio de un scrip y darle permisos a este para que sea ejecutado con permisos root sin pedir password **
 ### Editar sudouser
-Agregamos la siguiente linea para ejecutar el comando kill con permisos root y sin tener que ingresar password:
+Agregamos la siguiente linea para ejecutar el scipt kill.sh (en caperta script)  sin tener que ingresar password:
 ```
-<username> ALL= NOPASSWD:/usr/bin/kill
+<username> ALL= NOPASSWD:/path-script
 
 ```
 Donde "username" sera www-data en nuestro caso. 
-
-###Consecuencias
-Al hacer esta modificación le estaríamos dando al usuario la posibilidad de eliminar cualquier proceso lo cual es muy peligroso y de no hacerlo de forma responsable pone en riesgo la integridad de los servicios dentro del server.
 
 ##PUT /process/:pid
 Esta ruta nos permite re-priorizar un proceso especifico. Debemos pasar la variable PUT -> ni=valor    
 El valor de "ni" debe estar entre 19 (menor prioridad) y -20 (mayor prioridad). El usuario solo podra bajar la prioridad de los procesos que corren con el usuario www-data.
 La aplicación nos devolverá un mensaje de éxito en caso de haber podido re-priorizar el proceso.
-**De ser necesario darle los permisos para re-priorizar cualquier proceso (lo cual no se recomienda) podemos ejecutar el comando renice con permisos root modificando el archivo sudouser**
+**De ser necesario darle los permisos para re-priorizar cualquier proceso (lo cual no se recomienda para usuario standar) podemos ejecutar el comando renice con permisos root modificando el archivo sudouser**
 
 ### Editar sudouser
-Agregamos la siguiente linea para ejecutar el comando renice con permisos root y sin tener que ingresar password:
+Agregamos la siguiente linea para ejecutar el script renice.sh con permisos root y sin tener que ingresar password:
 
 ```
-<username> ALL= NOPASSWD:/usr/bin/renice
+<username> ALL= NOPASSWD:path-script
 
 ```
-### Consecuencias
-Esta modificación permitirá al usuario poder modificar la prioridad de cualquier proceso pudiendo realizar alguna modificación que perjudiquen los servicios corriendo en el server.
-
 ##POST /process
 Nos permite ejecutar comandos con un tiempo de vida útil bajo el usuario www-data. Por defecto esta configurado en 3 segundos. Debemos pasar el comando a través de la variable 		POST-> command=comando a ejecutar.
 El sistema nos devolverá el resultado de la ejecución del comando.
